@@ -296,11 +296,9 @@ the hyper-parameters of some supervised learning algorithm) using some
 specified \texttt{resampling} strategy, and measured against some
 battery of performance \texttt{measures}, looks like this:
 
-{\small
-\begin{minted}{julia}
+\begin{minted}[fontsize=\small]{julia}
     evaluate(model, X, y, resampling=CV(nfolds=6), measures=[L2HingeLoss(), BrierScore()])
 \end{minted}
-}
 
 %┌──────────────────────────────┬───────────────┬──────────────────────────────────%──────────────┐
 %│ _.measure                    │ _.measurement │ _.per_fold                       %              │
@@ -326,8 +324,7 @@ hyper-parameter \texttt{atom.n\_subfeatures} (where \texttt{atom} is
 another model). The first two lines of code define ranges for these
 parameters.
 
-{\small
-\begin{minted}{julia}
+\begin{minted}[fontsize=\small]{julia}
     r1 = range(forest_model, :(atom.n_subfeatures), lower=1, upper=9)
     r2 = range(forest_model, :bagging_fraction, lower=0.4, upper=1.0)
     self_tuning_forest_model = TunedModel(model=forest_model,
@@ -337,7 +334,6 @@ parameters.
                                           measure=LPDistLoss(2),
                                           n=25)
 \end{minted}
-}
 
 In this random search example default priors are assigned to each
 hyper-parameter but options exist to customize these. Both resampling
@@ -552,8 +548,7 @@ if only the ridge regressor hyper-parameters have changed.
 The syntax, then, for specifying the learning network shown in Figure
 \ref{fig:fig2} looks like this:
 
-{\small
-\begin{minted}[escapeinside=||,mathescape=true, samepage]{julia}
+\begin{minted}[fontsize=\small,escapeinside=||,mathescape=true]{julia}
     X = source(X_dummy)        # or just source()
     y = source(y_dummy)        # or just source()
 
@@ -571,7 +566,7 @@ The syntax, then, for specifying the learning network shown in Figure
     fit!(ŷ)  # to test training on the dummy data
     ŷ()      # to test prediction on the dummy data
 \end{minted}
-}
+
 %\^{z}
 %$\hat{z}$
 %ẑ = predict(machine2, X)
@@ -600,29 +595,12 @@ executed by the user with a simple macro call.
 
 \section{Future directions}
 
-Here is a selection of future work planned or in progress:
-
-\begin{itemize}
-
-\item \textbf{Supporting more models}. Proofs of concept already exist
-  for interfacing pure-Julia deep learning and probabilistic
-  programming models.
-
-\item \textbf{Enhancing core functionality}. Add more tuning
-  strategies, in particular, Bayesian methods and AD-powered gradient
-  descent.
-
-\item \textbf{Broadening Scope}. Adding resampling strategies and
-  tools for dealing with time series data, and for dealing with sparse
-  data relevant in natural language processing.
-
-\item \textbf{Scalability}. Add DAG scheduling for learning network
-  training.
-
-\end{itemize}
-
-A more comprehensive road map is linked from the MLJ repository
-\cite{MLJ}.
+There are plans to: (i) grow the number of models; (ii) enhance core
+functionality, particularly around hyper-parameter optimization
+\cite{MLJTuning}; and (iii) broaden scope, particularly around
+probabilistic programming models, time series, sparse data and natural
+language processing. A more comprehensive road map is linked from the
+MLJ repository \cite{MLJ}.
 
 \section*{Acknowledgments}
 
