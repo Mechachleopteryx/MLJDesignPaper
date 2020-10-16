@@ -262,11 +262,27 @@ For an overview on probabilistic supervised learning we refer to \cite{Gressmann
 
 \section{Model interfaces}
 
-MLJ provides a basic \texttt{fit/update/predict} interface to be implemented by new supervised models. For unsupervised models \texttt{predict} is replaced with \texttt{transform} and an optional \texttt{inverse\_transform} method. These methods operate on \textit{models} which are mutable structs storing hyper-parameters, and nothing else. This \textit{model interface} is purely functional for maximum flexibility. Presently the general MLJ user is encouraged to interact through a \textit{machine interface} sitting on top. See more on this below.
+MLJ provides a basic \texttt{fit/update/predict} interface to be
+implemented by new supervised models. For unsupervised models
+\texttt{predict} is replaced with \texttt{transform} and an optional
+\texttt{inverse\_transform} method. These methods operate on
+\textit{models} which are mutable structs storing hyper-parameters,
+and nothing else. This \textit{model interface} is purely functional
+for maximum flexibility. Presently the general MLJ user is encouraged
+to interact through a \textit{machine interface} sitting on top. See
+more on this below.
 
 \subsection{The model interface}
 
-In MLJ a \textit{model} is just a struct storing the hyper-parameters associated with some learning algorithm suggested by the struct name (e.g., \texttt{DecisionTreeClassifier}), and that is all. In the low-level, functional-style, model interface \textit{learned parameters} are not stored, only passed around. Learned parameters \textit{are} stored in machines (which additionally \textit{point} to the hyperparameters stored in a model); see below. The separation of hyper-parameters and learned parameters is essential to flexible model composition.
+In MLJ a \textit{model} is just a struct storing the hyper-parameters
+associated with some learning algorithm suggested by the struct name
+(e.g., \texttt{DecisionTreeClassifier}), and that is all. In the
+low-level, functional-style, model interface \textit{learned
+  parameters} are not stored, only passed around. Learned parameters
+\textit{are} stored in machines (which additionally \textit{point} to
+the hyperparameters stored in a model); see below. The separation of
+hyper-parameters and learned parameters is essential to flexible model
+composition.
 
 For supervised models the fit method has this signature:
 
