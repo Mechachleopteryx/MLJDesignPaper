@@ -118,7 +118,7 @@ are wanting to build increasingly sophisticated composite models, as
 exemplified in the strategies of top contestants in machine learning
 competitions such as Kaggle.
 
-MLJ (Machine Learning in Julia) \cite{MLJ} is a toolbox written in
+MLJ (Machine Learning in Julia) \cite{MLJdocs} is a toolbox written in
 Julia that provides a common interface and meta-algorithms for
 selecting, tuning, evaluating, composing and comparing machine model
 implementations written in Julia and other languages. More broadly,
@@ -230,10 +230,15 @@ interpreted. Some of these types are shown in Figure \ref{fig:fig1}.
 
 To the scientific types, MLJ adds a specific \textit{convention}
 specifying a scientific type for every Julia object. The convention is
-expressed through a single method \texttt{scitype}. A \texttt{coerce}
-method recasts machine types to have the desired scientific type
-(interpretation), and a \texttt{schema} method summarizes the machine
-and scientific types of tabular data.
+expressed through a single method \texttt{scitype}.  So, for example,
+\texttt{scitype(x)} returns \texttt{Continuous} whenever the type of
+\texttt{x} is a subtype of Julia's \texttt{AbstractFloat} type, as in
+\texttt{scitype(3.14) == Continuous}. A tabular data structure
+satisfying the Tables.jl inteface, will always have type `Table{K}`,
+where the type parameter `K` is the union of all column scientific
+types. A \texttt{coerce} method recasts machine types to have the
+desired scientific type (interpretation), and a \texttt{schema} method
+summarizes the machine and scientific types of tabular data.
 
 % \begin{minted}[samepage]{julia}
 %     In[1]:  using MLJ, CategoricalArrays
@@ -319,7 +324,7 @@ We now give an example of syntax for wrapping a model called
 \texttt{forest\_model} in a random search tuning strategy, using
 cross-validation, and optimizing the mean square loss. The
 \texttt{model} in this case is a composite model with an ordinary
-hyper-parameter called \texttt{bagging\_fraction} and a nested
+hyper-parameter called \texttt{bagging\_fraction} and a \textit{nested}
 hyper-parameter \texttt{atom.n\_subfeatures} (where \texttt{atom} is
 another model). The first two lines of code define ranges for these
 parameters.
@@ -394,7 +399,7 @@ associated with some learning algorithm suggested by the struct name
 a basic \textit{model interface}, to be implemented by new machine
 learning models, which is functional in style, for simplicity and
 maximal flexibility. In addition to a \texttt{fit} and optional
-\texttt{update} method, one implementes or more operations, such as
+\texttt{update} method, one implements one or more operations, such as
 \texttt{predict}, \texttt{transform} and \texttt{inverse\_transform},
 acting on the learned parameters returned by \texttt{fit}.
 
@@ -471,7 +476,7 @@ following shortcomings, which do not exist in MLJ:
   are not easily inspected or manipulated (in tuning algorithms, for
   example).
 
-\item Composite models cannot implement multiple opertations, for
+\item Composite models cannot implement multiple operations, for
   example, both a \texttt{predict} and \texttt{transform} method (as
   in clustering models) or both a \texttt{transform} and
   \texttt{inverse\_transform} method.
@@ -510,7 +515,7 @@ learning network as it is built.
   \label{fig:fig2}
 \end{figure}
 
-The upper panel side of Figure \ref{fig:fig2} illustrates a simple
+The left panel of Figure \ref{fig:fig2} illustrates a simple
 learning network in which a continuous target \texttt{y} is
 "normalized" using a learned Box Cox transformation, producing
 \texttt{z}, while PCA dimension reduction is applied to some features
@@ -520,7 +525,7 @@ to make a target prediction \texttt{\^{z}}. To obtain a final
 prediction \texttt{\^{y}}, we apply the \textit{inverse} of the Box
 Cox transform, learned previously, to \texttt{\^{z}}.
 
-The lower "training" panel of the figure shows the three machines
+The right "training" panel of the figure shows the three machines
 which will store the parameters learned in training - the Box Cox
 exponent and shift (\texttt{machine1}), the PCA projection
 (\texttt{machine2}) and the ridge model coefficients and intercept
@@ -734,7 +739,7 @@ Anthony Blaom and collaborators.
 
 \bibitem[Blaom and collaborators(2020)]{ScientificTypes}
 Anthony Blaom and collaborators.
-\newblock An API for dispatching on the "scientific" type of data instead of the machine type, 2020.
+\newblock ScientificTypes: An API for dispatching on the "scientific" type of data instead of the machine type, 2019.
 \newblock URL \url{https://alan-turing-institute.github.io/ScientificTypes/}.
 
 \bibitem[Lin et~al.(2020)Lin, White, Byrne, Noack, Besançon, Bates, Pearson,
